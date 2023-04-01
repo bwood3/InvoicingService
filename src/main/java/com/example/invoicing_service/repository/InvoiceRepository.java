@@ -7,7 +7,10 @@ import com.example.invoicing_service.model.invoiceItemFields.Item;
 import com.example.invoicing_service.model.invoiceItemFields.ShippingAddress;
 import com.example.invoicing_service.model.paymentFields.BillingAddress;
 import com.example.invoicing_service.model.paymentFields.Payment;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +35,15 @@ public class InvoiceRepository {
     public Invoice getInvoiceByID(int id)
     {
         Invoice r = invoices.stream().filter(x -> x.getOrderID() == id).findAny().orElse(null);
+//        if(r == null)
+//            throw new ResponseStatusException(
+//                    HttpStatus.NOT_FOUND, "order with this id does not exist in the system"
+//            );
+
+//            throw new IllegalStateException("order with this id does not exist in the system");
         return r;
     }
+
 
     public void update(UpdateShipping updateShipping, int orderID)
     {
