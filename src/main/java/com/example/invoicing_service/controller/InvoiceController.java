@@ -53,9 +53,6 @@ public class InvoiceController {
             return new ErrorResponse(ex.getMessage(), LocalDateTime.now());
         }
     }
-    @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "order with this id does not exist in the system")
-    public static class IdNotFoundException extends RuntimeException {
-    }
 
     @PutMapping("/{id}")
     public void updateStatus(@RequestBody UpdateShipping update, @PathVariable int id)
