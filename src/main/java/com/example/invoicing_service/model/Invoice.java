@@ -1,33 +1,39 @@
 package com.example.invoicing_service.model;
 
-import com.example.invoicing_service.model.paymentFields.Payment;
+import java.util.Date;
+import java.util.List;
 
 public class Invoice {
-    private InvoiceItem invoiceItem;
+    private Date orderPlaced;
+
+    private float total;
+
+    private List<InvoiceItem> invoiceItems;
+
     private Payment payment;
 
-    private Double total;
-
-    //date order was placed
-    private String orderPlaced;
-
-    private int orderID;
-
-
-    public int getOrderID() {
-        return orderID;
+    public Date getOrderPlaced() {
+        return orderPlaced;
     }
 
-    public void setOrderID(int orderID) {
-        this.orderID = orderID;
+    public void setOrderPlaced(Date orderPlaced) {
+        this.orderPlaced = orderPlaced;
     }
 
-    public InvoiceItem getInvoiceItem() {
-        return invoiceItem;
+    public float getTotal() {
+        return total;
     }
 
-    public void setInvoiceItem(InvoiceItem invoiceItem) {
-        this.invoiceItem = invoiceItem;
+    public void setTotal(float total) {
+        this.total = total;
+    }
+
+    public List<InvoiceItem> getInvoiceItems() {
+        return invoiceItems;
+    }
+
+    public void setInvoiceItems(List<InvoiceItem> invoiceItems) {
+        this.invoiceItems = invoiceItems;
     }
 
     public Payment getPayment() {
@@ -36,21 +42,5 @@ public class Invoice {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
-    }
-
-    public Double getTotal() {
-        return total;
-    }
-
-    public void setTotal(Double total) {
-        this.total = total;
-    }
-
-    public String getOrderPlaced() {
-        return orderPlaced;
-    }
-
-    public void setOrderPlaced(String orderPlaced) {
-        this.orderPlaced = orderPlaced;
     }
 }
