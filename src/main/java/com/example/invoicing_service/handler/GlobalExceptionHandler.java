@@ -1,7 +1,6 @@
 package com.example.invoicing_service.handler;
 
 
-import com.example.invoicing_service.controller.InvoiceController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;

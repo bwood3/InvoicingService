@@ -1,10 +1,10 @@
 package com.example.invoicing_service.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Invoice {
-    private Date orderPlaced;
+    private LocalDate orderPlaced;
 
     private float total;
 
@@ -12,11 +12,11 @@ public class Invoice {
 
     private Payment payment;
 
-    public Date getOrderPlaced() {
+    public LocalDate getOrderPlaced() {
         return orderPlaced;
     }
 
-    public void setOrderPlaced(Date orderPlaced) {
+    public void setOrderPlaced(LocalDate orderPlaced) {
         this.orderPlaced = orderPlaced;
     }
 
