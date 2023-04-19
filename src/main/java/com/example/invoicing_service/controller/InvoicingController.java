@@ -1,9 +1,10 @@
 package com.example.invoicing_service.controller;
 
-import com.example.invoicing_service.model.Invoice;
-import com.example.invoicing_service.model.InvoiceItem;
-import com.example.invoicing_service.model.Order;
+import com.example.invoicing_service.model.*;
+import com.example.invoicing_service.repository.InvoiceRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
@@ -17,6 +18,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/invoices")
 public class InvoicingController {
+    @Autowired
+    private InvoiceRepository invoiceRepository;
 
     private final WebClient orderService;
 
@@ -39,20 +42,35 @@ public class InvoicingController {
         }
 
         Invoice invoice = new Invoice();
+        invoice.setId(order.getId());
         invoice.setOrderPlaced(LocalDate.now());
-        invoice.setTotal(order.total());
-        invoice.setPayment(order.payment());
+        invoice.setTotal(order.getTotal());
+        invoice.setPayment(order.getPayment());
 
         List<InvoiceItem> invoiceItems = new ArrayList<>();
         InvoiceItem invoiceItem = new InvoiceItem();
         invoiceItem.setStatus("shipping now");
         invoiceItem.setOn(new Date());
-        invoiceItem.setAddress(order.shippingAddress());
-        invoiceItem.setItems(order.items());
+        invoiceItem.setAddress(order.getShippingAddress());
+        invoiceItem.setItems(order.getItems());
+        invoiceItem.setInvoice(invoice);  // Set the parent Invoice of the InvoiceItem
         invoiceItems.add(invoiceItem);
 
         invoice.setInvoiceItems(invoiceItems);
+        invoiceRepository.save(invoice);
+        System.out.println("Saved InvoiceItem with ID: " + invoiceItem.getId());
 
         return invoice;
     }
+
+//    @PutMapping("/{orderId}")
+//    public void updateItemStatus(@PathVariable int orderId, @RequestBody UpdateItem request) {
+//        // You can get the itemId and status from the request object
+//        int itemId = request.getItemId();
+//        String status = request.getStatus();
+//
+//        boolean update = invoiceRepository.updateItemStatus(orderId, itemId, status);
+//
+//        System.out.println(update);
+//    }
 }

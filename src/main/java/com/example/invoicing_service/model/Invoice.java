@@ -1,15 +1,30 @@
 package com.example.invoicing_service.model;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.List;
-
+@Entity
 public class Invoice {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     private LocalDate orderPlaced;
 
     private float total;
-
+    @OneToMany(cascade = CascadeType.ALL)
     private List<InvoiceItem> invoiceItems;
 
+    @OneToOne(cascade = CascadeType.ALL)
     private Payment payment;
 
     public LocalDate getOrderPlaced() {
