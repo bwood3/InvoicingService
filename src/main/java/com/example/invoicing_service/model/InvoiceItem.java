@@ -5,31 +5,13 @@ import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-@Table(name = "invoice_item_items")
 public class InvoiceItem {
-    public Invoice getInvoice() {
-        return invoice;
-    }
-
-    public void setInvoice(Invoice invoice) {
-        this.invoice = invoice;
-    }
-
-    @ManyToOne
-    private Invoice invoice;
-    private String status = "pending";
-
-    @Column(name = "on_date")
+    private String status;
     private Date on;
-    @OneToOne(cascade = CascadeType.ALL)
+
     private Address address;
 
-    @OneToMany(cascade = CascadeType.ALL)
     private List<OrderItem> items;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
 
     public String getStatus() {
         return status;
@@ -61,13 +43,5 @@ public class InvoiceItem {
 
     public void setItems(List<OrderItem> items) {
         this.items = items;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
     }
 }
